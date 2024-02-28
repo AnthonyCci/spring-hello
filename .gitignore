@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+nbactions.xml
+mvnw
+mvnw.cmd
+.mvn/wrapper
+
