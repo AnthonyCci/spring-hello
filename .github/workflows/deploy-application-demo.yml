@@ -45,5 +45,5 @@ jobs:
         run: systemctl start tomcat-10.service
 
       - name: Finish
-          run echo "Application deployed"
+        run: echo "Application deployed"
     
