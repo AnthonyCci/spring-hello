@@ -21,18 +21,29 @@ jobs:
           /opt/apache-maven-3.9.6/bin/mvn clean install package
         env:
           JAVA_HOME: ${{ env.JAVA_HOME }}
+        
   deploy:
     needs: build
     runs-on: self-hosted
     steps:
-    - name: Complete and Start Application
-      #run: |
-      #  ${{ env.JAVA_HOME }}/bin/java -jar /opt/actions-runner/_work/spring-hello/spring-hello/target/demo-hello-0.0.1-SNAPSHOT.jar &
-      #  PID=$!  # Obtener el ID del proceso
-      #  echo "PID del proceso de la aplicación Spring Boot: $PID"
-      run: |
-        cd  /opt/actions-runner/_work/spring-hello/spring-hello/target/ &&
-        /opt/apache-maven-3.9.6/bin/mvn run:spring-boot &
-        PID=$!  # Obtener el ID del proceso
-        echo "PID del proceso de la aplicación Spring Boot: $PID"
+      - name: Stop Tomcat
+        run: |
+          sudo systemctl stop tomcat-10.service
+          while sudo systemctl is-active --quiet tomcat-10.service; do
+            echo "Waiting stop tomcat"
+            sleep 5
+          done
+          echo "Tomcat is stopped"
+        
+      - name: Replace WAR file
+        run: |
+          rm -rf /opt/tomcat-10/webapps/demo-hello
+          rm -rf /opt/tomcat-10/webapps/demo-hello.war
+          cp -rf /opt/actions-runner/_work/spring-hello/spring-hello/target/demo-hello-0.0.1-SNAPSHOT.war /opt/tomcat-10/webapps/demo-hello.war
+  
+      - name: Start Tomcat
+        run: sudo systemctl start tomcat-10.service
+
+      - name: Finish
+          run echo "Application deployed"
     
