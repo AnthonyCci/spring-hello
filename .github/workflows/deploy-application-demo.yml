@@ -42,7 +42,7 @@ jobs:
           cp -rf /opt/actions-runner/_work/spring-hello/spring-hello/target/demo-hello-0.0.1-SNAPSHOT.war /opt/tomcat-10/webapps/demo-hello.war
   
       - name: Start Tomcat
-        run: sudo systemctl start tomcat-10.service
+        run: systemctl start tomcat-10.service
 
       - name: Finish
           run echo "Application deployed"
