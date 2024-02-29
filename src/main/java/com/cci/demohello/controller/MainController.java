@@ -24,7 +24,7 @@ public class MainController {
     public ResponseEntity<?> hello() {
         Map<String, Object> response = new HashMap<String, Object>() {
             {
-                put("message", "Hello World");
+                put("message", "Hello World Anthony");
                 put("date", LocalDate.now());
             }
         };
