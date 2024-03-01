@@ -39,8 +39,8 @@ public class PersonServiceImpl implements PersonService {
                 && !person.getName().isBlank()) {
             Person personEntity = mapper.map(person, new TypeToken<Person>() {
             }.getType());
-
-            return mapper.map(repository.save(personEntity), new TypeToken<PersonDTO>() {
+            Person personInserted = repository.save(personEntity);
+            return mapper.map(personInserted, new TypeToken<PersonDTO>() {
             }.getType());
         }
         throw new BadRequestException("Bad request: Can't insert the person");
@@ -61,8 +61,8 @@ public class PersonServiceImpl implements PersonService {
                 && !person.getName().isBlank()) {
             Person personEntity = mapper.map(person, new TypeToken<Person>() {
             }.getType());
-
-            return mapper.map(repository.save(personEntity), new TypeToken<PersonDTO>() {
+            Person personUpdated = repository.save(personEntity);
+            return mapper.map(personUpdated, new TypeToken<PersonDTO>() {
             }.getType());
         }
         throw new BadRequestException("Bad request: Can't update the person");

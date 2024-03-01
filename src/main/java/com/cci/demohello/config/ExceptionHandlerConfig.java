@@ -27,7 +27,7 @@ public class ExceptionHandlerConfig {
 
     @ExceptionHandler(ResourceNotFounException.class)
     public ResponseEntity<ResponseException> handleResourceNotFoundException(ResourceNotFounException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ResponseException(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseException(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
     }
 }
