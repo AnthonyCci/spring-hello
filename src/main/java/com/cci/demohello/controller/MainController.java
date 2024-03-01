@@ -7,6 +7,7 @@ package com.cci.demohello.controller;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Anthony Flores Boza
  */
 @RestController
-@RequestMapping("/hello-world")
+@RequestMapping("/")
 public class MainController {
 
-    @GetMapping(path = {"", "/"})
+    @GetMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> hello() {
         Map<String, Object> response = new HashMap<String, Object>() {
             {
-                put("message", "Hello World Anthony");
+                put("message", "Server is running");
                 put("date", LocalDate.now());
             }
         };

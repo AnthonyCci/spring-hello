@@ -8,6 +8,7 @@ import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.service.impl.PersonServiceImpl;
 import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,32 +33,32 @@ public class PersonController {
         this.service = service;
     }
 
-    @PostMapping(path = {"", "/"})
+    @PostMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> insert(@RequestBody PersonDTO person) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(person));
     }
 
-    @PutMapping(path = {"", "/"})
+    @PutMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO person) {
         return ResponseEntity.status(HttpStatus.OK).body(service.update(person));
     }
 
-    @DeleteMapping(path = {"/{person}/delete"})
+    @DeleteMapping(path = {"/{person}/delete"}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> delete(@PathVariable("person") Long person) {
         return ResponseEntity.status(HttpStatus.OK).body(service.delete(person));
     }
 
-    @GetMapping(path = {"/{id}/ById"})
+    @GetMapping(path = {"/{id}/ById"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
-    @GetMapping(path = {"/{name}/ByName"})
+    @GetMapping(path = {"/{name}/ByName"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> findByName(@PathVariable("name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findByName(name));
     }
 
-    @GetMapping(path = {"", "/"})
+    @GetMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }

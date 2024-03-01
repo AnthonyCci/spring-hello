@@ -6,11 +6,19 @@ spring:
              naming:
                   physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     datasource:
-         jndi-name: jdbc/demo-hello   
+         jndi-name: jdbc/demo-hello
 server:
     port: 8181
     servlet:
          context-path: /api 
 application:
     title: Demo Hello
-    version: 1.0.1
+    version: 1.0.0
+    
+springdoc:
+    swagger-ui:
+         enabled: true
+         path: /swagger-ui.html
+    api-docs:
+         enabled: true
+    pathsToMatch: /person/**, /
