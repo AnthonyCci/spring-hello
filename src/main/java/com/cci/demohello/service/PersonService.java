@@ -5,10 +5,10 @@
 package com.cci.demohello.service;
 
 import com.cci.demohello.model.PersonDTO;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
- *
  * @author Anthony Flores Boza
  */
 public interface PersonService {
@@ -23,6 +23,6 @@ public interface PersonService {
 
     public PersonDTO findByName(String name);
 
-    public List<PersonDTO> findAll();
+    public Page<PersonDTO> findAll(Pageable pageable);
 
 }

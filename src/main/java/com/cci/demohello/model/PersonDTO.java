@@ -8,14 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
- *
  * @author Anthony Flores Boza
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDTO {
+public class PersonDTO implements Serializable {
 
     private Long id;
     private String name;

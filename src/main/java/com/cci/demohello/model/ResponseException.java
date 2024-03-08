@@ -4,17 +4,18 @@
  */
 package com.cci.demohello.model;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
- *
  * @author Anthony Flores Boza
  */
 @Data
 @NoArgsConstructor
-public class ResponseException {
+public class ResponseException implements Serializable {
 
     private int status;
     private String message;

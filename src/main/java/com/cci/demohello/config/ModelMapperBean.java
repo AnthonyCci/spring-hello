@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- *
  * @author Anthony Flores Boza
  */
 @Configuration
@@ -19,4 +18,5 @@ public class ModelMapperBean {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
 }

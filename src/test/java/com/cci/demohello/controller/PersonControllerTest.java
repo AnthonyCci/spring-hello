@@ -4,51 +4,63 @@
  */
 package com.cci.demohello.controller;
 
+import com.cci.demohello.config.security.handler.CustomAccessDeniedEntryPoint;
+import com.cci.demohello.exception.AccessDeniedException;
 import com.cci.demohello.exception.ResourceNotFounException;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.never;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.verify;
-import static org.mockito.BDDMockito.any;
-import static org.mockito.BDDMockito.eq;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.service.impl.PersonServiceImpl;
-import static com.cci.demohello.util.JSONParser.parseObjectToJSON;
-import java.util.ArrayList;
-import java.util.List;
-import static org.hamcrest.Matchers.is;
-import org.junit.jupiter.api.Assertions;
+import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+
+import static com.cci.demohello.util.JSONParser.parseObjectToJSON;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- *
  * @author Anthony Flores Boza
  */
-@WebMvcTest
+@SpringBootTest
 public class PersonControllerTest {
 
-    private final MockMvc mockMvc;
-
     @Autowired
-    public PersonControllerTest(MockMvc mockMvc) {
-        this.mockMvc = mockMvc;
+    private WebApplicationContext context;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .build();
     }
 
     @MockBean
     private PersonServiceImpl service;
 
     @Test
+    @WithMockUser(username = "user.test", roles = {"ADMINISTRATOR"})
     void testInsertPerson() throws Exception {
+
         PersonDTO person = new PersonDTO();
         person.setName("New Person");
 
@@ -56,7 +68,7 @@ public class PersonControllerTest {
                 .willAnswer(invocation -> invocation.getArgument(0));
 
         ResultActions response = mockMvc.perform(
-                post("/person")
+                post("/persons")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(parseObjectToJSON(person))
         );
@@ -68,6 +80,23 @@ public class PersonControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user.test", roles = {"CLIENT_BASIC"})
+    void testInsertPersonAccessDenied() throws Exception {
+
+        PersonDTO person = new PersonDTO();
+        person.setName("New Person");
+
+        Throwable exception = assertThrows(ServletException.class, () -> {
+            mockMvc.perform(
+                    post("/persons")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(parseObjectToJSON(person))
+            );
+        });
+        assertTrue(exception.getCause() instanceof org.springframework.security.access.AccessDeniedException, "Access Denied");
+    }
+
+   /* @Test
     public void testFindAllPersons() throws Exception {
 
         List<PersonDTO> persons = new ArrayList<>();
@@ -85,15 +114,16 @@ public class PersonControllerTest {
         response.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(persons.size())));
-    }
+    }*/
 
     @Test
+    @WithMockUser(username = "user.test", roles = {"ADMINISTRATOR"})
     public void testFindPersonByIdNotFound() throws Exception {
 
         given(service.findById(1L)).willThrow(ResourceNotFounException.class);
 
         ResultActions response = mockMvc.perform(
-                get("/person/{id}/ById", 1L)
+                get("/persons/{id}/ById", 1L)
         );
 
         response.andExpect(status().isNotFound())

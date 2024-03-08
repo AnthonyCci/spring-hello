@@ -35,4 +35,4 @@ nbactions.xml
 mvnw
 mvnw.cmd
 .mvn/wrapper
-
+.env.properties

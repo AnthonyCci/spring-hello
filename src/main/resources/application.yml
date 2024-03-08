@@ -1,4 +1,6 @@
 spring:
+    config:
+      import: classpath:.env.properties
     jpa:
          show-sql: true
          hibernate:
@@ -14,8 +16,13 @@ server:
 application:
     title: Demo Hello
     version: 1.0.0
-    
-springdoc:
+
+security:
+    jwt:
+      expiration-in-minutes: ${EXPIRATION_IN_MINUTES}
+      secret-key: ${SECRET_KEY}
+
+spring-doc:
     swagger-ui:
          enabled: true
          path: /swagger-ui.html

@@ -11,13 +11,13 @@ import com.cci.demohello.persistence.entity.Person;
 import com.cci.demohello.persistence.repository.PersonRepository;
 import com.cci.demohello.service.PersonService;
 import jakarta.transaction.Transactional;
-import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- *
  * @author Anthony Flores Boza
  */
 @Service
@@ -101,9 +101,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDTO> findAll() {
-        List<Person> persons = repository.findAll();
-        return mapper.map(persons, new TypeToken<List<PersonDTO>>() {
+    public Page<PersonDTO> findAll(Pageable pageable) {
+        Page<Person> personsPage = repository.findAll(pageable);
+        return mapper.map(personsPage, new TypeToken<Page<PersonDTO>>() {
         }.getType());
     }
 

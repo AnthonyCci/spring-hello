@@ -1,3 +1,7 @@
+security:
+  jwt:
+    expiration-in-minutes: ${EXPIRATION_IN_MINUTES}
+    secret-key: ${SECRET_KEY}
 spring:
     config:
          import: classpath:.env.properties

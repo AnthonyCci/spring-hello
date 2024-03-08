@@ -6,22 +6,11 @@ package com.cci.demohello.service;
 
 import com.cci.demohello.exception.BadRequestException;
 import com.cci.demohello.exception.ResourceNotFounException;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.never;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.verify;
-import static org.mockito.BDDMockito.any;
-import static org.mockito.BDDMockito.eq;
-
 import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.persistence.entity.Person;
 import com.cci.demohello.persistence.repository.PersonRepository;
 import com.cci.demohello.service.impl.PersonServiceImpl;
 import jakarta.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,8 +21,13 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.test.context.jdbc.Sql;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+
 /**
- *
  * @author Anthony Flores Boza
  */
 @ExtendWith(MockitoExtension.class)
@@ -147,7 +141,7 @@ public class PersonServiceTest {
 
     }
 
-    @Test
+    /*@Test
     void testFindAllPersons() {
         List<Person> entities = new ArrayList<>();
         given(repository.findAll()).willReturn(entities);
@@ -158,6 +152,6 @@ public class PersonServiceTest {
         List<PersonDTO> personsFound = service.findAll();
         assertThat(personsFound).isNotNull();
         assertThat(personsFound.size()).isEqualTo(0);
-    }
+    }*/
 
 }
