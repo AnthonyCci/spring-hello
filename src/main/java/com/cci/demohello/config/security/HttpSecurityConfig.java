@@ -48,7 +48,7 @@ public class HttpSecurityConfig {
                             .permitAll()
                             .requestMatchers(HttpMethod.GET, "/persons")
                             .permitAll()
-                            .requestMatchers(HttpMethod.GET, "/swagger-ui.html")
+                            .requestMatchers(HttpMethod.GET, "/swagger-ui/**")
                             .permitAll()
                             .anyRequest().authenticated();
                 })
