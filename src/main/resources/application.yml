@@ -2,7 +2,7 @@ spring:
     config:
       import: optional:.env.properties
     jpa:
-         show-sql: true
+         show-sql: false
          hibernate:
              ddl-auto: update
              naming:
@@ -12,7 +12,7 @@ spring:
 server:
     port: 8181
     servlet:
-         context-path: /api 
+         context-path: /api
 application:
     title: Demo Hello
     version: 1.0.0
@@ -28,4 +28,4 @@ spring-doc:
          path: /swagger-ui.html
     api-docs:
          enabled: true
-    pathsToMatch: /person/**, /
+    pathsToMatch: /persons/**, /, /users/**, /auth/**

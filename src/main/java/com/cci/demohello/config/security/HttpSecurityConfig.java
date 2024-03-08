@@ -48,6 +48,8 @@ public class HttpSecurityConfig {
                             .permitAll()
                             .requestMatchers(HttpMethod.GET, "/persons")
                             .permitAll()
+                            .requestMatchers(HttpMethod.GET, "/swagger-ui.html")
+                            .permitAll()
                             .anyRequest().authenticated();
                 })
                 .exceptionHandling(exceptionConfig -> {
