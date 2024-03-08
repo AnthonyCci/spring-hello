@@ -1,0 +1,27 @@
+name: Test Spring Boot App in dev branch
+
+on:
+  push:
+    branches:
+      ["dev"]
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java to tests
+        run: echo "JAVA_HOME=/usr/lib/jvm/open-jdk-17" >> $GITHUB_ENV
+
+      - name: Run Tests
+        run: |
+          /opt/apache-maven-3.9.6/bin/mvn clean test
+        env:
+          DB_DATABASE: $DB_DATABASE
+          DB_USER: $DB_USER
+          DB_PASSWORD: $DB_PASSWORD
+          EXPIRATION_IN_MINUTES: ${{ secrets.EXPIRATION_IN_MINUTES }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
