@@ -23,7 +23,7 @@ jobs:
           DB_USER: $DB_USER
           DB_PASSWORD: $DB_PASSWORD
           EXPIRATION_IN_MINUTES: $EXPIRATION_IN_MINUTES
-          SECRET_KEY: $SECRET_KEY
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           JAVA_HOME: ${{ env.JAVA_HOME }}
           
    build:
@@ -42,7 +42,7 @@ jobs:
             /opt/apache-maven-3.9.6/bin/mvn clean install package -DskipTests
           env:        
             EXPIRATION_IN_MINUTES: $EXPIRATION_IN_MINUTES
-            SECRET_KEY: $SECRET_KEY
+            SECRET_KEY: ${{ secrets.SECRET_KEY }}
             JAVA_HOME: ${{ env.JAVA_HOME }}
           
    deploy:
