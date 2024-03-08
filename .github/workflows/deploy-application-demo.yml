@@ -1,13 +1,13 @@
 name: Deploy Spring Boot App
 
 on:
-  push:
-    branches:
-       ["master"]
+  pull_request:
+    types: [ closed ]
        
 jobs:
    test:
       runs-on: self-hosted
+      if: github.event.pull_request.merged && github.event.pull_request.base.ref == 'master'
       steps:
       - name: Checkout code
         uses: actions/checkout@v3
