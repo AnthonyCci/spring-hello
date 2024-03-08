@@ -6,6 +6,7 @@ package com.cci.demohello.controller;
 
 import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.service.PersonService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,30 +28,35 @@ public class PersonController {
         this.service = service;
     }
 
+    @SecurityRequirement(name = "BearerAuthentication")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @PostMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> insert(@RequestBody PersonDTO person) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(person));
     }
 
+    @SecurityRequirement(name = "BearerAuthentication")
     @PreAuthorize("hasAnyRole('ADMINISTRATOR','ASSISTANT_ADMINISTRATOR')")
     @PutMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO person) {
         return ResponseEntity.status(HttpStatus.OK).body(service.update(person));
     }
 
+    @SecurityRequirement(name = "BearerAuthentication")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @DeleteMapping(path = {"/{person}/delete"}, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> delete(@PathVariable("person") Long person) {
         return ResponseEntity.status(HttpStatus.OK).body(service.delete(person));
     }
 
+    @SecurityRequirement(name = "BearerAuthentication")
     @PreAuthorize("hasAnyRole('ADMINISTRATOR','ASSISTANT_ADMINISTRATOR')")
     @GetMapping(path = {"/{id}/ById"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
+    @SecurityRequirement(name = "BearerAuthentication")
     @PreAuthorize("hasAnyRole('ADMINISTRATOR','ASSISTANT_ADMINISTRATOR')")
     @GetMapping(path = {"/{name}/ByName"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonDTO> findByName(@PathVariable("name") String name) {

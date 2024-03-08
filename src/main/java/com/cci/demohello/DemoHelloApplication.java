@@ -14,15 +14,4 @@ public class DemoHelloApplication {
         SpringApplication.run(DemoHelloApplication.class, args);
     }
 
-    @Bean
-    public OpenAPI customOpenApi() {
-        return new OpenAPI().info(new Info()
-                .title("Demo Hello Spring Boot API")
-                .version("1.0.0")
-                .description("Sample app API in Spring Boot")
-                .termsOfService("https://swagger.io/terms/")
-                .license(
-                        new License().name("Apache 2.0").url("https://springdoc.org"))
-        );
-    }
 }
