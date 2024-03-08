@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS `demo-hello-test`;
-INSERT INTO `demo-hello`.`'role'`
+/*INSERT INTO `demo-hello`.`'role'`
 (`id`,
 `name`)
 VALUES
@@ -16,5 +16,5 @@ VALUES
 'Anthony Flores',
 '',
 'anthony.flores',
-1);
+1);*/
 
