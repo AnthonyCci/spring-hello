@@ -1,4 +1,4 @@
-name: Deploy Spring Boot App
+name: Test Spring Boot App in dev branch
 
 on:
   push:
