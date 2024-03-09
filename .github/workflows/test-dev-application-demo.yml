@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          /opt/apache-maven-3.9.6/bin/mvn clean test
+          /opt/apache-maven-3.8.4/bin/mvn clean test
         env:
           DB_DATABASE: $DB_DATABASE
           DB_USER: $DB_USER
