@@ -3,22 +3,16 @@ package com.cci.demohello.controller;
 import com.cci.demohello.exception.*;
 import com.cci.demohello.exception.config.GlobalExceptionHandler;
 import com.cci.demohello.model.ResponseExceptionDTO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.mockito.Mockito.mock;
 
 public class AdviceControllerTest {
 
     @Test
     public void testHandlerGenericException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         Exception exception = new Exception("Test exception");
@@ -31,9 +25,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandleBadRequestException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         BadRequestException exception = new BadRequestException("Test exception");
@@ -46,9 +37,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandleResourceNotFoundException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         ResourceNotFounException exception = new ResourceNotFounException("Test exception");
@@ -61,9 +49,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandlerAccessDeniedException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         AccessDeniedException exception = new AccessDeniedException("Test exception");
@@ -76,9 +61,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandlerAuthenticationException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         AuthenticationException exception = new AuthenticationException("Test exception");
@@ -91,9 +73,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandlerConflictException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         ConflictException exception = new ConflictException("Test exception");
@@ -106,9 +85,6 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandlerBadCredentialsException() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         BadCredentialsException exception = new BadCredentialsException("Test exception");
