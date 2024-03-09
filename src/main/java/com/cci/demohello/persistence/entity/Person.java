@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Anthony Flores Boza
@@ -19,7 +21,7 @@ import lombok.Data;
 @Entity
 @Table(name = "person")
 @Data
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
