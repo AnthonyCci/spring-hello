@@ -14,6 +14,14 @@ jobs:
         
       - name: Set up Java to tests
         run: echo "JAVA_HOME=/usr/lib/jvm/open-jdk-17" >> $GITHUB_ENV
+
+      - name: Prepare
+        run: |
+            /opt/apache-maven-3.9.6/bin/mvn clean install -DskipTests
+        env:        
+          EXPIRATION_IN_MINUTES:  ${{ secrets.EXPIRATION_IN_MINUTES }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
         
       - name: SonarQube Scan
         run: /opt/apache-maven-3.9.6/bin/mvn sonar:sonar \
