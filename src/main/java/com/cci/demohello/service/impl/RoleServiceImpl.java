@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     public RoleDTO insert(RoleDTO role) {
         if (role.getName() != null
                 && !role.getName().isEmpty()
-                && !role.getName().isEmpty()) {
+                && !role.getName().isBlank()) {
             boolean existsByName = repository.existsByName(role.getName());
             if (!existsByName) {
                 Role roleEntity = mapper.map(role, new TypeToken<Role>() {

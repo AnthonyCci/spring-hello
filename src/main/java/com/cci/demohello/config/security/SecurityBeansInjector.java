@@ -1,6 +1,5 @@
 package com.cci.demohello.config.security;
 
-import com.cci.demohello.persistence.repository.UserRepository;
 import com.cci.demohello.service.auth.UserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityBeansInjector {
-
-    private final UserRepository userRepository;
     private final UserDetailsService userDetailsService;
 
-    public SecurityBeansInjector(UserRepository userRepository, UserDetailsService userDetailsService) {
-        this.userRepository = userRepository;
+    public SecurityBeansInjector(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 

@@ -22,13 +22,10 @@ import java.util.Map;
 public class MainController {
 
     @GetMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> hello() {
-        Map<String, Object> response = new HashMap<String, Object>() {
-            {
-                put("message", "Server is running");
-                put("date", LocalDate.now());
-            }
-        };
+    public ResponseEntity<Map<String, Object>> hello() {
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("message", "Server is running");
+        response.put("date", LocalDate.now());
         return ResponseEntity.ok(response);
     }
 }

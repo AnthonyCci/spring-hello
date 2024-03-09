@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-public class ResponseException implements Serializable {
+public class ResponseExceptionDTO implements Serializable {
 
     private int status;
     private String message;
     private LocalDateTime timestamp;
 
-    public ResponseException(int status, String message) {
+    public ResponseExceptionDTO(int status, String message) {
         this.status = status;
         this.message = message;
         this.timestamp = LocalDateTime.now();
