@@ -40,17 +40,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ResponseExceptionDTO> handlerAccessDeniedException(AuthenticationException ex) {
+    public ResponseEntity<ResponseExceptionDTO> handlerAuthenticationException(AuthenticationException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseExceptionDTO(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
     }
 
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<ResponseExceptionDTO> handlerAccessDeniedException(ConflictException ex) {
+    public ResponseEntity<ResponseExceptionDTO> handlerConflictException(ConflictException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseExceptionDTO(HttpStatus.CONFLICT.value(), ex.getMessage()));
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ResponseExceptionDTO> handlerBadCredentialsException(ConflictException ex) {
+    public ResponseEntity<ResponseExceptionDTO> handlerBadCredentialsException(BadCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseExceptionDTO(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
     }
 
