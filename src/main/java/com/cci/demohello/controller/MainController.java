@@ -23,7 +23,7 @@ public class MainController {
 
     @GetMapping(path = {""}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> hello() {
-        Map<String, Object> response = new HashMap<String, Object>();
+        Map<String, Object> response = new HashMap<>();
         response.put("message", "Server is running");
         response.put("date", LocalDate.now());
         return ResponseEntity.ok(response);

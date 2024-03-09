@@ -1,5 +1,6 @@
 package com.cci.demohello.controller;
 
+import com.cci.demohello.exception.BadRequestException;
 import com.cci.demohello.exception.config.GlobalExceptionHandler;
 import com.cci.demohello.model.ResponseExceptionDTO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,5 +31,12 @@ public class AdviceControllerTest {
         Exception ex = new Exception("Error message");
         ResponseEntity<ResponseExceptionDTO> responseEntity = adviceController.handlerGenericException(ex);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+    }
+
+    @Test
+    public void testHandleBadRequestException() {
+        BadRequestException ex = new BadRequestException("Error message");
+        ResponseEntity<ResponseExceptionDTO> responseEntity = adviceController.handleBadRequestException(ex);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }
 }
