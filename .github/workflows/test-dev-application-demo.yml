@@ -17,9 +17,9 @@ jobs:
     
       - name: SonarQube Scan
         run: /opt/apache-maven-3.8.4/bin/mvn sonar:sonar \
-             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+             -Dsonar.projectKey=demo-hello-key \
              -Dsonar.host.url="http://68.183.123.51:9088" \
-             -Dsonar.login=${{ secrets.SONAR_LOGIN }}
+             -Dsonar.login=sqp_c38e6b149ec9d3cdac5a6232d43c535cb85318a9
         env: 
           JAVA_HOME: ${{ env.JAVA_HOME }}
           SONAR_JAVA_PATH: ${{ env.JAVA_HOME }}/bin/java
