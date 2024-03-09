@@ -4,8 +4,6 @@
  */
 package com.cci.demohello.controller;
 
-import com.cci.demohello.config.security.handler.CustomAccessDeniedEntryPoint;
-import com.cci.demohello.exception.AccessDeniedException;
 import com.cci.demohello.exception.ResourceNotFounException;
 import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.service.impl.PersonServiceImpl;
@@ -15,14 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import static com.cci.demohello.util.JSONParser.parseObjectToJSON;
 import static org.hamcrest.Matchers.is;
