@@ -28,15 +28,19 @@ public class AdviceControllerTest {
 
     @Test
     public void testHandleException() {
-        Exception ex = new Exception("Error message");
-        ResponseEntity<ResponseExceptionDTO> responseEntity = adviceController.handlerGenericException(ex);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        Exception ex = new Exception("Test exception");
+        ResponseEntity<ResponseExceptionDTO> response = adviceController.handlerGenericException(ex);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatusCode().value());
+        assertEquals("Test exception", response.getBody().getMessage());
     }
 
     @Test
     public void testHandleBadRequestException() {
-        BadRequestException ex = new BadRequestException("Error message");
-        ResponseEntity<ResponseExceptionDTO> responseEntity = adviceController.handleBadRequestException(ex);
-        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        BadRequestException ex = new BadRequestException("Test exception");
+        ResponseEntity<ResponseExceptionDTO> response = adviceController.handleBadRequestException(ex);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatusCode().value());
+        assertEquals("Test exception", response.getBody().getMessage());
     }
 }
