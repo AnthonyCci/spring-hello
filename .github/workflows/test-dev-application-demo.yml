@@ -14,6 +14,12 @@ jobs:
         
       - name: Set up Java to tests
         run: echo "JAVA_HOME=/usr/lib/jvm/open-jdk-17" >> $GITHUB_ENV
+
+      - name: Debug Secrets
+        run: |
+          echo "SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}"
+          echo "SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}"
+          echo "SONAR_URL: ${{ secrets.SONAR_URL }}"
           
       - name: SonarQube Scan
         run: /opt/apache-maven-3.9.6/bin/mvn verify sonar:sonar \
