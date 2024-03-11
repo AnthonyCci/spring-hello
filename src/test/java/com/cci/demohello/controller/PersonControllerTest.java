@@ -4,30 +4,23 @@
  */
 package com.cci.demohello.controller;
 
-import com.cci.demohello.config.security.handler.CustomAccessDeniedEntryPoint;
-import com.cci.demohello.exception.AccessDeniedException;
 import com.cci.demohello.exception.ResourceNotFounException;
 import com.cci.demohello.model.PersonDTO;
 import com.cci.demohello.service.impl.PersonServiceImpl;
-import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import static com.cci.demohello.util.JSONParser.parseObjectToJSON;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -72,7 +65,6 @@ public class PersonControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(parseObjectToJSON(person))
         );
-
         response.andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(person.getId())))
@@ -85,15 +77,13 @@ public class PersonControllerTest {
 
         PersonDTO person = new PersonDTO();
         person.setName("New Person");
-
-        Throwable exception = assertThrows(ServletException.class, () -> {
-            mockMvc.perform(
-                    post("/persons")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(parseObjectToJSON(person))
-            );
-        });
-        assertTrue(exception.getCause() instanceof org.springframework.security.access.AccessDeniedException, "Access Denied");
+        ResultActions response = mockMvc.perform(
+                post("/persons")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(parseObjectToJSON(person))
+        );
+        response.andExpect(status().isForbidden())
+                .andDo(print());
     }
 
    /* @Test
