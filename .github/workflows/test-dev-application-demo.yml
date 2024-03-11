@@ -24,11 +24,12 @@ jobs:
       - name: SonarQube Scan
         run: /opt/apache-maven-3.9.6/bin/mvn verify sonar:sonar \
              -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-             -Dsonar.login=${{ secrets.SONAR_LOGIN }}
+             -Dsonar.login=${{ secrets.SONAR_LOGIN }} \
+             --Dsonar.host.url= ${{ secrets.SONAR_URL }}
         env:
           JAVA_HOME: ${{ env.JAVA_HOME }}
           SONAR_JAVA_PATH: ${{ env.JAVA_HOME }}/bin/java
-          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
+
   test:
     needs: sonarqube_scan
     runs-on: self-hosted
