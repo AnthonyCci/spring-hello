@@ -16,13 +16,13 @@ jobs:
         run: echo "JAVA_HOME=/usr/lib/jvm/open-jdk-17" >> $GITHUB_ENV
           
       - name: SonarQube Scan
-        run: /opt/apache-maven-3.9.6/bin/mvn verify sonar:sonar
+        run: /opt/apache-maven-3.9.6/bin/mvn verify sonar:sonar \
+             -Dsonar.login=${{ secrets.SONAR_LOGIN }}
         env:
           JAVA_HOME: ${{ env.JAVA_HOME }}
           SONAR_JAVA_PATH: ${{ env.JAVA_HOME }}/bin/java
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
   test:
     needs: sonarqube_scan
     runs-on: self-hosted
