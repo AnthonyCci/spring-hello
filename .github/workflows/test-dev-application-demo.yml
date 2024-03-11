@@ -10,14 +10,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         
       - name: Set up Java to tests
         run: echo "JAVA_HOME=/usr/lib/jvm/open-jdk-17" >> $GITHUB_ENV
     
       - name: SonarQube Scan
         run: /opt/apache-maven-3.8.4/bin/mvn sonar:sonar \
-             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+             -Dsonar.projectKey= ${{ secrets.SONAR_PROJECT_KEY }} \
              -Dsonar.host.url=${{ secrets.SONAR_URL }} \
              -Dsonar.login=${{ secrets.SONAR_LOGIN }}
         env: 
