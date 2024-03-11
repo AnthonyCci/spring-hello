@@ -23,7 +23,6 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
-          
   test:
     needs: sonarqube_scan
     runs-on: self-hosted
