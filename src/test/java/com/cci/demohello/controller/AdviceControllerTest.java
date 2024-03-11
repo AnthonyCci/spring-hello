@@ -52,7 +52,7 @@ public class AdviceControllerTest {
         GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler();
 
         AccessDeniedException exception = new AccessDeniedException("Test exception");
-        ResponseEntity<ResponseExceptionDTO> responseEntity = globalExceptionHandler.handlerAccessDeniedException(exception);
+        ResponseEntity<ResponseExceptionDTO> responseEntity = globalExceptionHandler.handlerAccessDeniedLocalException(exception);
 
         assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
         assertEquals(HttpStatus.FORBIDDEN.value(), responseEntity.getBody().getStatus());

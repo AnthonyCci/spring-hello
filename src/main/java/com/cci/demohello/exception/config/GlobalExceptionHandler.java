@@ -32,10 +32,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseExceptionDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
     }
 
+    @ExceptionHandler(
+            org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<ResponseExceptionDTO> handlerAccessDeniedSpringSecurityException(org.springframework.security.access.AccessDeniedException ex) {
+        AccessDeniedException exceptionResponse = new AccessDeniedException("Access denied");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseExceptionDTO(HttpStatus.FORBIDDEN.value(), exceptionResponse.getMessage()));
+    }
 
-    @ExceptionHandler({AccessDeniedException.class,
-            org.springframework.security.access.AccessDeniedException.class})
-    public ResponseEntity<ResponseExceptionDTO> handlerAccessDeniedException(AccessDeniedException ex) {
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ResponseExceptionDTO> handlerAccessDeniedLocalException(AccessDeniedException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseExceptionDTO(HttpStatus.FORBIDDEN.value(), ex.getMessage()));
     }
 
