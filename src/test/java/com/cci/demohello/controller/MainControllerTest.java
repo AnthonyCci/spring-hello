@@ -38,7 +38,7 @@ public class MainControllerTest {
         );
         response.andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.message", is("Server is running Bernal")));
+                .andExpect(jsonPath("$.message", is("Server is running Anthony")));
     }
              
 }
